@@ -19,7 +19,7 @@ function App() {
             mode: "no-cors",
           }
         );
-        const resData = await res.json();
+        const resData = res.json();
         console.log(resData);
         dispatch(setDataProduct(resData));
       } catch (error) {
