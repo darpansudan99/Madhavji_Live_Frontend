@@ -64,6 +64,10 @@ const Signup = () => {
             body: JSON.stringify(data),
           }
         );
+        if (!fetchData.ok) {
+          console.error(`Fetch error: ${fetchData.statusText}`);
+          return;
+        }
 
         const dataRes = await fetchData.json();
         // alert(dataRes.message);
