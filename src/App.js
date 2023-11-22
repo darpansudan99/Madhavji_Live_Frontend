@@ -16,7 +16,7 @@ function App() {
           `${process.env.REACT_APP_SERVER_DOMAIN}/product`,
           {
             method: "GET",
-            mode: "no-cors",
+            
           }
         );
         console.log(res);
