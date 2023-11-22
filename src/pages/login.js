@@ -63,7 +63,8 @@ const Login = () => {
 
       try {
         if (!fetchData.ok) {
-          throw new Error(`HTTP error! Status: ${fetchData.status}`);
+          console.error(`Fetch error: ${fetchData.statusText}`);
+          return;
         }
       
         const dataRes = await fetchData.json();
