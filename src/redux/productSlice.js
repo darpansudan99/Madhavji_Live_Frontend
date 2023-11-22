@@ -11,8 +11,14 @@ export const productSlice = createSlice({
   initialState,
   reducers: {
     setDataProduct: (state, action) => {
-       state.productList = [...action.payload];
+      try {
+        state.productList = [...action.payload];
+      } catch (error) {
+        console.error("Error setting product data:", error);
+        // Handle the error, show a toast, or dispatch another action.
+      }
     },
+    
     addCartItem: (state, action) => {
       const check = state.cartItem.some((el) => el._id === action.payload._id);
       if (check) {
