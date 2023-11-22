@@ -19,7 +19,9 @@ function App() {
             mode: "no-cors",
           }
         );
+        console.log(res);
         const resData = await res.json();
+        console.log(resData);
         dispatch(setDataProduct(resData));
       } catch (error) {
         console.error("Error fetching product data:", error);
