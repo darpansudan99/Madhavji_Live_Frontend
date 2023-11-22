@@ -19,6 +19,7 @@ function App() {
             mode: "no-cors",
           }
         );
+        console.log(res);
         const resData = res.json();
         console.log(resData);
         dispatch(setDataProduct(resData));
