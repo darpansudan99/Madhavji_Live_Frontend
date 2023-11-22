@@ -12,12 +12,17 @@ export const productSlice = createSlice({
   reducers: {
     setDataProduct: (state, action) => {
       try {
-        state.productList = [...action.payload];
+        // Log payload for debugging
+        console.log('Payload:', action.payload);
+    
+        // Ensure payload is iterable
+        state.productList = Array.isArray(action.payload) ? [...action.payload] : [];
       } catch (error) {
         console.error("Error setting product data:", error);
         // Handle the error, show a toast, or dispatch another action.
       }
     },
+    
     
     addCartItem: (state, action) => {
       const check = state.cartItem.some((el) => el._id === action.payload._id);
