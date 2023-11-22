@@ -81,8 +81,8 @@ const Login = () => {
       } catch (error) {
         console.error("Error handling login response:", error);
       }
-      console.log("Response Status:", fetchData.status);
-      console.log("Response JSON:", await fetchData.json());
+    }
+  }
 
 
   //     const dataRes = await fetchData.json()
