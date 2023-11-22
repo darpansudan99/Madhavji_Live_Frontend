@@ -14,7 +14,7 @@ import Menu from "./pages/Menu";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Login from "./pages/login";
-import NewProduct from "./pages/NewProduct"
+import NewProduct from "./pages/NewProduct";
 import Signup from "./pages/Signup";
 import { Provider } from "react-redux";
 import { store } from "./redux";
@@ -25,14 +25,12 @@ import Cancel from "./pages/Cancel";
 
 // Import the Contact component
 
-
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index element={<Home />} />
-      {/* <Route path="menu" element={<Menu />} /> */}
-      <Route path="menu/:filterby" element={<Menu />} />
+      <Route path="menu" element={<Menu />} />
+      {/* <Route path="menu/:filterby" element={<Menu />} /> */}
       <Route path="about" element={<About />} />
       <Route path="contact" element={<Contact />} />
       <Route path="login" element={<Login />} />
