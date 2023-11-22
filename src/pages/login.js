@@ -56,55 +56,32 @@ const Login = () => {
           headers: {
             "content-type": "application/json",
           },
-          //mode: 'no-cors',
+          mode: 'no-cors',
           body: JSON.stringify(data),
         }
       );
 
-      try {
-        if (!fetchData.ok) {
-          throw new Error(`HTTP error! Status: ${fetchData.status}`);
-        }
       
-        const dataRes = await fetchData.json();
-        console.log(dataRes);
+
+      const dataRes = await fetchData.json()
+      console.log(dataRes)
       
-        toast(dataRes.message);
+      toast(dataRes.message)
       
-        if (dataRes.alert) {
-          dispatch(loginRedux(dataRes));
-          localStorage.setItem("userData", JSON.stringify(dataRes.data));
-          setTimeout(() => {
-            navigate("/");
-          }, 1000);
-        }
-      } catch (error) {
-        console.error("Error handling login response:", error);
+      if(dataRes.alert){
+        dispatch(loginRedux(dataRes));
+        localStorage.setItem("userData", JSON.stringify(dataRes.data));
+        setTimeout(() => {
+          navigate("/")
+        }, 1000);
       }
-      console.log("Response Status:", fetchData.status);
-      console.log("Response JSON:", await fetchData.json());
+
+      console.log(userData)
+    }
+    else{
+        alert("Please Enter required fields")
     }
   }
-
-  //     const dataRes = await fetchData.json()
-  //     console.log(dataRes)
-      
-  //     toast(dataRes.message)
-      
-  //     if(dataRes.alert){
-  //       dispatch(loginRedux(dataRes));
-  //       localStorage.setItem("userData", JSON.stringify(dataRes.data));
-  //       setTimeout(() => {
-  //         navigate("/")
-  //       }, 1000);
-  //     }
-
-  //     console.log(userData)
-  //   }
-  //   else{
-  //       alert("Please Enter required fields")
-  //   }
-  // }
 
   return (
     <div className="p-3 md:p-4">
