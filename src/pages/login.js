@@ -82,6 +82,7 @@ const Login = () => {
         console.error("Error handling login response:", error);
       }
     }
+  }
   //     const dataRes = await fetchData.json()
   //     console.log(dataRes)
       
