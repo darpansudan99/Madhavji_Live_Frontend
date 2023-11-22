@@ -83,7 +83,8 @@ const Login = () => {
       }
       console.log("Response Status:", fetchData.status);
       console.log("Response JSON:", await fetchData.json());
-
+    }
+  }
 
   //     const dataRes = await fetchData.json()
   //     console.log(dataRes)
