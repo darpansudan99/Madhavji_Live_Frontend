@@ -63,8 +63,7 @@ const Login = () => {
 
       try {
         if (!fetchData.ok) {
-          console.error(`Fetch error: ${fetchData.statusText}`);
-          return;
+          throw new Error(`HTTP error! Status: ${fetchData.status}`);
         }
       
         const dataRes = await fetchData.json();
@@ -82,8 +81,8 @@ const Login = () => {
       } catch (error) {
         console.error("Error handling login response:", error);
       }
-    }
-  }
+      console.log("Response Status:", fetchData.status);
+      console.log("Response JSON:", await fetchData.json());
 
 
   //     const dataRes = await fetchData.json()
