@@ -13,20 +13,18 @@ function App() {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `${process.env.REACT_APP_SERVER_DOMAIN}/product`,
-          {
-            method: "GET",
-            mode: "no-cors",
-          }
+          `${process.env.REACT_APP_SERVER_DOMAIN}/product`
+          // Remove the "mode" property
         );
         console.log(res);
-        const resData = res.json();
+        const resData = await res.json(); // Await the json() method
         console.log(resData);
         dispatch(setDataProduct(resData));
       } catch (error) {
         console.error("Error fetching product data:", error);
       }
     };
+    
 
     fetchData();
   }, [dispatch]);
