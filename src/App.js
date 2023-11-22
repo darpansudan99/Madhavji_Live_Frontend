@@ -10,36 +10,24 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   try {
-    //     const res = await fetch(
-    //       `${process.env.REACT_APP_SERVER_DOMAIN}/product`,
-    //       {
-    //         method: "GET",
-    //         mode: "no-cors",
-    //       }
-    //     );
-    //     console.log(res);
-    //     const resData = await res.json();
-    //     console.log(resData);
-    //     dispatch(setDataProduct(resData));
-    //   } catch (error) {
-    //     console.error("Error fetching product data:", error);
-    //   }
-    // };
-    const fetchData = () => {
-      fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/product`)
-        .then((res) => res.json())
-        .then((resData) => {
-          console.log(resData);
-          dispatch(setDataProduct(resData));
-        })
-        .catch((error) => {
-          console.error("Error fetching product data:", error);
-        });
+    const fetchData = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.REACT_APP_SERVER_DOMAIN}/product`,
+          {
+            method: "GET",
+            mode: "no-cors",
+          }
+        );
+        console.log(res);
+        const resData = await res.json();
+        console.log(resData);
+        dispatch(setDataProduct(resData));
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
     };
     
-
     fetchData();
   }, [dispatch]);
 
