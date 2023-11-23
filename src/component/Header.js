@@ -1,3 +1,5 @@
+// Header.js
+
 import React, { useState } from "react";
 import madhavji from "../Assets/madhavji.webp";
 import { Link } from "react-router-dom";
@@ -9,7 +11,6 @@ import { toast } from "react-hot-toast";
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const userData = useSelector((state) => state.user);
-  console.log(userData.email);
   const dispatch = useDispatch();
 
   const handleShowMenu = () => {
@@ -21,7 +22,7 @@ const Header = () => {
     toast("Logout successfully");
   };
 
-  const cartItemNumber = useSelector((state)=>state.product.cartItem)
+  const cartItemNumber = useSelector((state) => state.product.cartItem);
 
   return (
     <header className="fixed shadow-md w-full h-18 px-2 md:px-4 z-50 bg-white">
@@ -71,12 +72,12 @@ const Header = () => {
                 )}
 
                 {userData.image ? (
-                  <p
+                  <div
                     className="cursor-pointer text-white px-2 bg-red-500"
                     onClick={handleLogout}
                   >
-                    Logout ({userData.firstName}){" "}
-                  </p>
+                    Logout ({userData.firstName})
+                  </div>
                 ) : (
                   <Link
                     to={"login"}
@@ -87,30 +88,24 @@ const Header = () => {
                 )}
 
                 <nav className="text-base md:text-lg flex flex-col md:hidden">
-                    <Link to={""} className="px-2 py-1">
-                      Home
-                    </Link>
-                    <Link
-                      to={"menu/655493643cd6c1be6768b41b"}
-                      className="px-2 py-1"
-                    >
-                      Menu
-                    </Link>
-                    <Link to={"about"} className="px-2 py-1">
-                      About
-                    </Link>
-                    <Link to={"contact"} className="px-2 py-1">
-                      Contact
-                    </Link>
+                  <Link to={""} className="px-2 py-1">
+                    Home
+                  </Link>
+                  <Link to={"menu/655493643cd6c1be6768b41b"} className="px-2 py-1">
+                    Menu
+                  </Link>
+                  <Link to={"about"} className="px-2 py-1">
+                    About
+                  </Link>
+                  <Link to={"contact"} className="px-2 py-1">
+                    Contact
+                  </Link>
                 </nav>
-
               </div>
             )}
           </div>
         </div>
       </div>
-
-      {/* mobile */}
     </header>
   );
 };
