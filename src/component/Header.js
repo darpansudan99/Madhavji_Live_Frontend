@@ -13,7 +13,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const handleShowMenu = () => {
-    setShowMenu((preve) => !preve);
+    setShowMenu((prev) => !prev);
   };
 
   const handleLogout = () => {
