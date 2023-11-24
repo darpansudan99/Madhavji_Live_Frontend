@@ -52,6 +52,7 @@ const Cart = () => {
   
         if (!data || !data.id) {
           console.error("Invalid session data received from the server");
+          console.error("Received data:", data);
           return;
         }
   
