@@ -45,9 +45,17 @@ const Cart = () => {
 
       const data = await res.json();
       console.log(data);
-
+      if (!data || !data.id) {
+        console.error("Invalid session data received from the server");
+        return;
+      }
+      
       toast("Redirect to payment Gateway...!");
-      stripePromise.redirectToCheckout({ sessionId: data });
+      stripePromise.redirectToCheckout({ sessionId: data.id });
+      
+
+      // toast("Redirect to payment Gateway...!");
+      // stripePromise.redirectToCheckout({ sessionId: data });
     } else {
       toast("You have not Login!");
       setTimeout(() => {
