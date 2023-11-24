@@ -36,6 +36,11 @@ const Cart = () => {
           body: JSON.stringify(productCartItem),
         }
       );
+      
+      if (!res.ok) {
+        console.error(`Failed to create checkout session. Status: ${res.status}`);
+        return;
+      }
       if (res.statusCode === 500) return;
 
       const data = await res.json();
