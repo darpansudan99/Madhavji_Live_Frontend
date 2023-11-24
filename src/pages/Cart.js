@@ -32,14 +32,18 @@ const Cart = () => {
           headers: {
             "content-type": "application/json",
           },
-          mode: 'no-cors',
+          mode: "no-cors",
           body: JSON.stringify(productCartItem),
         }
       );
-      console.log(body);
-      
+      console.log(JSON.stringify(productCartItem));
+
       if (!res.ok) {
-        console.error(`Failed to create checkout session. Status: ${res.status + "  " + res}`);
+        console.error(
+          `Failed to create checkout session. Status: ${
+            res.status + "  " + res
+          }`
+        );
         return;
       }
       // if (res.statusCode === 500) return;
@@ -50,10 +54,9 @@ const Cart = () => {
         console.error("Invalid session data received from the server");
         return;
       }
-      
+
       toast("Redirect to payment Gateway...!");
       stripePromise.redirectToCheckout({ sessionId: data.id });
-      
 
       // toast("Redirect to payment Gateway...!");
       // stripePromise.redirectToCheckout({ sessionId: data });
