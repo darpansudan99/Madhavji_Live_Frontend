@@ -22,50 +22,56 @@ const Cart = () => {
 
   const handlePayment = async () => {
     if (user.email) {
-      const stripePromise = await loadStripe(
-        process.env.REACT_APP_STRIPE_PUBLIC_KEY
-      );
-      const res = await fetch(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/create-checkout-session`,
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(productCartItem),
-        }
-      );
-      console.log(JSON.stringify(productCartItem));
-
-      if (!res.ok) {
-        console.error(
-          `Failed to create checkout session. Status: ${
-            res.status + "  " + res
-          }`
+      try {
+        const stripePromise = await loadStripe(
+          process.env.REACT_APP_STRIPE_PUBLIC_KEY
         );
-        return;
+  
+        const res = await fetch(
+          `${process.env.REACT_APP_SERVER_DOMAIN}/create-checkout-session`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(productCartItem),
+          }
+        );
+  
+        if (!res.ok) {
+          console.error(
+            `Failed to create checkout session. Status: ${res.status}`
+          );
+          // Log the response text for more information
+          const responseText = await res.text();
+          console.error(`Response text: ${responseText}`);
+          return;
+        }
+  
+        const data = await res.json();
+  
+        if (!data || !data.id) {
+          console.error("Invalid session data received from the server");
+          return;
+        }
+  
+        console.log("Session data from the server:", data);
+  
+        toast("Redirect to the payment gateway...!");
+        await stripePromise.redirectToCheckout({ sessionId: data.id });
+      } catch (error) {
+        console.error("Error during payment processing:", error);
+        // You can handle the error as needed, e.g., show an error toast
+        toast.error("An error occurred during payment processing");
       }
-      // if (res.statusCode === 500) return;
-
-      const data = await res.json();
-      console.log(data);
-      if (!data || !data.id) {
-        console.error("Invalid session data received from the server");
-        return;
-      }
-
-      toast("Redirect to payment Gateway...!");
-      stripePromise.redirectToCheckout({ sessionId: data.id });
-
-      // toast("Redirect to payment Gateway...!");
-      // stripePromise.redirectToCheckout({ sessionId: data });
     } else {
-      toast("You have not Login!");
+      toast("You have not logged in!");
       setTimeout(() => {
         navigate("/login");
       }, 1000);
     }
   };
+  
   return (
     <>
       <div className="p-2 md:p-4">
