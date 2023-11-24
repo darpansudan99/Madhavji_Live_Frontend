@@ -38,7 +38,7 @@ const Cart = () => {
       );
       
       if (!res.ok) {
-        console.error(`Failed to create checkout session. Status: ${res.status}`);
+        console.error(`Failed to create checkout session. Status: ${res.status + "  " + res}`);
         return;
       }
       // if (res.statusCode === 500) return;
