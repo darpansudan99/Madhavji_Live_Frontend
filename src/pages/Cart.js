@@ -36,6 +36,7 @@ const Cart = () => {
           body: JSON.stringify(productCartItem),
         }
       );
+      console.log(body);
       
       if (!res.ok) {
         console.error(`Failed to create checkout session. Status: ${res.status + "  " + res}`);
