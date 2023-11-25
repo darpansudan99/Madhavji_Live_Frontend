@@ -22,11 +22,11 @@ const Cart = () => {
 
   const handlePayment = async () => {
     if (user.email) {
+      const stripePromise = loadStripe(
+        process.env.REACT_APP_STRIPE_PUBLIC_KEY
+      );
+      
       try {
-        const stripePromise = await loadStripe(
-          process.env.REACT_APP_STRIPE_PUBLIC_KEY
-        );
-  
         const res = await fetch(
           `${process.env.REACT_APP_SERVER_DOMAIN}/create-checkout-session`,
           {
@@ -37,32 +37,24 @@ const Cart = () => {
             body: JSON.stringify(productCartItem),
           }
         );
-  
+      
         if (!res.ok) {
-          console.error(
-            `Failed to create checkout session. Status: ${res.status}`
-          );
-          // Log the response text for more information
-          const responseText = await res.text();
-          console.error(`Response text: ${responseText}`);
-          return;
+          throw new Error(`Failed to create checkout session. Status: ${res.status}`);
         }
-  
+      
         const data = await res.json();
-  
+      
         if (!data || !data.id) {
-          console.error("Invalid session data received from the server");
-          console.error("Received data:", data);
-          return;
+          throw new Error("Invalid session data received from the server");
         }
-  
+      
         console.log("Session data from the server:", data);
-  
+      
         toast("Redirect to the payment gateway...!");
         await stripePromise.redirectToCheckout({ sessionId: data.id });
       } catch (error) {
         console.error("Error during payment processing:", error);
-        // You can handle the error as needed, e.g., show an error toast
+        // Handle the error as needed, e.g., show an error toast
         toast.error("An error occurred during payment processing");
       }
     } else {
