@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import CartProduct from "../component/cartProduct";
 import emptyCartImage from "../Assets/empty.gif";
 import { toast } from "react-hot-toast";
-import { loadStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useNavigate } from "react-router-dom";
 
@@ -24,10 +23,12 @@ const Cart = () => {
   const handlePayment = async () => {
     if (user.email) {
       try {
-        const stripePromise = await loadStripe(
+        const stripePromise = loadStripe(
           process.env.REACT_APP_STRIPE_PUBLIC_KEY ||
             "pk_test_51Kd6gOSDpRhomUXIxNTby06DAjCYOknKC7DnJbJOC1fqQGeY97ur2z49zRiNlDYukyWWewUAy4Jf2uzWoSoOkPTJ00VByPRZxl"
         );
+
+        const stripe = await stripePromise;
 
         const res = await fetch(
           `${process.env.REACT_APP_SERVER_DOMAIN}/create-checkout-session`,
@@ -61,7 +62,7 @@ const Cart = () => {
         console.log("Session data from the server:", data);
 
         toast("Redirect to the payment gateway...!");
-        await stripePromise.redirectToCheckout({
+        stripe.redirectToCheckout({
           sessionId: data.id,
         });
       } catch (error) {
