@@ -60,7 +60,7 @@ const Cart = () => {
         console.log("Session data from the server:", data);
   
         toast("Redirect to the payment gateway...!");
-        await stripe.redirectToCheckout({
+        await stripePromise.redirectToCheckout({
           sessionId: session.data.session.id
         });
         // await stripePromise.redirectToCheckout({ sessionId: data.id });
