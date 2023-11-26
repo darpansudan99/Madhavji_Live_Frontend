@@ -25,9 +25,10 @@ const Cart = () => {
     if (user.email) {
       try {
         const stripePromise = await loadStripe(
-          process.env.REACT_APP_STRIPE_PUBLIC_KEY
+          process.env.REACT_APP_STRIPE_PUBLIC_KEY ||
+            "pk_test_51Kd6gOSDpRhomUXIxNTby06DAjCYOknKC7DnJbJOC1fqQGeY97ur2z49zRiNlDYukyWWewUAy4Jf2uzWoSoOkPTJ00VByPRZxl"
         );
-  
+
         const res = await fetch(
           `${process.env.REACT_APP_SERVER_DOMAIN}/create-checkout-session`,
           {
@@ -38,7 +39,7 @@ const Cart = () => {
             body: JSON.stringify(productCartItem),
           }
         );
-  
+
         if (!res.ok) {
           console.error(
             `Failed to create checkout session. Status: ${res.status}`
@@ -48,17 +49,17 @@ const Cart = () => {
           console.error(`Response text: ${responseText}`);
           return;
         }
-  
+
         const data = await res.json();
-  
+
         if (!data || !data.id) {
           console.error("Invalid session data received from the server");
           console.error("Received data:", data);
           return;
         }
-  
+
         console.log("Session data from the server:", data);
-  
+
         toast("Redirect to the payment gateway...!");
         await stripePromise.redirectToCheckout({
           sessionId: data.id,
@@ -75,8 +76,7 @@ const Cart = () => {
       }, 1000);
     }
   };
-  
-  
+
   return (
     <>
       <div className="p-2 md:p-4">
