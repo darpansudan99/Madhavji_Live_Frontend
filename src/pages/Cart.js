@@ -27,7 +27,7 @@ const Cart = () => {
         const stripePromise = await loadStripe(
           "pk_test_51Kd6gOSDpRhomUXIxNTby06DAjCYOknKC7DnJbJOC1fqQGeY97ur2z49zRiNlDYukyWWewUAy4Jf2uzWoSoOkPTJ00VByPRZxl"
         );
-
+        console.log(stripePromise);
         const res = await fetch(
           `${process.env.REACT_APP_SERVER_DOMAIN}/create-checkout-session`,
           {
