@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import CartProduct from "../component/cartProduct";
 import emptyCartImage from "../Assets/empty.gif";
@@ -19,6 +19,10 @@ const Cart = () => {
     (acc, curr) => acc + parseInt(curr.qty),
     0
   );
+
+  useEffect(() => {
+    handlePayment;
+  });
 
   const handlePayment = async () => {
     if (user.email) {
