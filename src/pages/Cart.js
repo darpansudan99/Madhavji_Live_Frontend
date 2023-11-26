@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import CartProduct from "../component/cartProduct";
 import emptyCartImage from "../Assets/empty.gif";
 import { toast } from "react-hot-toast";
+import { loadStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useNavigate } from "react-router-dom";
 
@@ -22,11 +23,11 @@ const Cart = () => {
 
   const handlePayment = async () => {
     if (user.email) {
-      const stripePromise = loadStripe(
-        process.env.REACT_APP_STRIPE_PUBLIC_KEY
-      );
-      
       try {
+        const stripePromise = await loadStripe(
+          process.env.REACT_APP_STRIPE_PUBLIC_KEY
+        );
+  
         const res = await fetch(
           `${process.env.REACT_APP_SERVER_DOMAIN}/create-checkout-session`,
           {
@@ -37,24 +38,35 @@ const Cart = () => {
             body: JSON.stringify(productCartItem),
           }
         );
-      
+  
         if (!res.ok) {
-          throw new Error(`Failed to create checkout session. Status: ${res.status}`);
+          console.error(
+            `Failed to create checkout session. Status: ${res.status}`
+          );
+          // Log the response text for more information
+          const responseText = await res.text();
+          console.error(`Response text: ${responseText}`);
+          return;
         }
-      
+  
         const data = await res.json();
-      
+  
         if (!data || !data.id) {
-          throw new Error("Invalid session data received from the server");
+          console.error("Invalid session data received from the server");
+          console.error("Received data:", data);
+          return;
         }
-      
+  
         console.log("Session data from the server:", data);
-      
+  
         toast("Redirect to the payment gateway...!");
-        await stripePromise.redirectToCheckout({ sessionId: data.id });
+        await stripe.redirectToCheckout({
+          sessionId: session.data.session.id
+        });
+        // await stripePromise.redirectToCheckout({ sessionId: data.id });
       } catch (error) {
         console.error("Error during payment processing:", error);
-        // Handle the error as needed, e.g., show an error toast
+        // You can handle the error as needed, e.g., show an error toast
         toast.error("An error occurred during payment processing");
       }
     } else {
