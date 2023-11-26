@@ -61,9 +61,8 @@ const Cart = () => {
   
         toast("Redirect to the payment gateway...!");
         await stripePromise.redirectToCheckout({
-          sessionId: session.data.session.id
+          sessionId: data.id,
         });
-        // await stripePromise.redirectToCheckout({ sessionId: data.id });
       } catch (error) {
         console.error("Error during payment processing:", error);
         // You can handle the error as needed, e.g., show an error toast
@@ -76,6 +75,7 @@ const Cart = () => {
       }, 1000);
     }
   };
+  
   
   return (
     <>
