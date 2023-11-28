@@ -18,12 +18,11 @@ const AllProduct = ({ heading }) => {
   const handleFilterProduct = (category) => {
     setFilterBy(category);
     const filter = productData.filter(
-      (e1) => e1.category.toLowerCase() === category.toLowerCase()
+      (e1) => e1.category && e1.category.toLowerCase() === category.toLowerCase()
     );
-    setDataFilter(() => {
-      return [...filter];
-    });
+    setDataFilter(() => [...filter]);
   };
+  
 
   const loadingArrayFeature = new Array(10).fill(null);
 
