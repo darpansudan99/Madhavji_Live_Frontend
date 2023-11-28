@@ -18,14 +18,17 @@ const AllProduct = ({ heading }) => {
   }, [productData]);
   
 
-  const handleFilterProduct = (category) => {
-    setFilterBy(category);
-    const filter = productData.filter((e1) => {
-      console.log("e1.category:", e1.category);
-      return e1.category && e1.category.toLowerCase() === category.toLowerCase();
-    });
-    setDataFilter(() => [...filter]);
-  };  
+  // Inside AllProduct component
+const handleFilterProduct = (category) => {
+  setFilterBy(category);
+  const filter = productData.filter((e1) => {
+    console.log("e1.category:", e1.category);
+    return e1.category && e1.category.toLowerCase() === category?.toLowerCase();
+    // Add the optional chaining operator (?.) to safely access the property
+  });
+  setDataFilter(() => [...filter]);
+};
+
   
   
 
