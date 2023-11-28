@@ -12,8 +12,11 @@ const AllProduct = ({ heading }) => {
   const [dataFilter, setDataFilter] = useState([]);
 
   useEffect(() => {
-    setDataFilter(productData);
+    if (productData.length > 0) {
+      setDataFilter(productData);
+    }
   }, [productData]);
+  
 
   const handleFilterProduct = (category) => {
     setFilterBy(category);
@@ -22,7 +25,7 @@ const AllProduct = ({ heading }) => {
       return e1.category && e1.category.toLowerCase() === category.toLowerCase();
     });
     setDataFilter(() => [...filter]);
-  };
+  };  
   
   
 
