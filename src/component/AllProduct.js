@@ -8,7 +8,7 @@ const AllProduct = ({ heading }) => {
   const categoryList = [...new Set(productData.map((e1) => e1.category))];
 
   // filter data display
-  const [filterby, setFilterBy] = useState("");
+  const [filterby, setFilterBy] = useState("all");
   const [dataFilter, setDataFilter] = useState([]);
 
   useEffect(() => {
@@ -59,24 +59,22 @@ const AllProduct = ({ heading }) => {
       </div>
 
       <div className="flex flex-wrap justify-center gap-4 my-4">
-        {dataFilter[0] ? (
-          dataFilter.map((e1) => {
-            return (
-              <CardFeature
-                key={e1._id}
-                id={e1._id}
-                image={e1.image}
-                name={e1.name}
-                category={e1.category}
-                price={e1.price}
-              />
-            );
-          })
-        ) : (
-          loadingArrayFeature.map((_, index) => (
-            <CardFeature loading="Loading..." key={index + "allProduct"} />
-          ))
-        )}
+        {dataFilter[0]
+          ? dataFilter.map((e1) => {
+              return (
+                <CardFeature
+                  key={e1._id}
+                  id={e1._id}
+                  image={e1.image}
+                  name={e1.name}
+                  category={e1.category}
+                  price={e1.price}
+                />
+              );
+            })
+          : loadingArrayFeature.map((_, index) => (
+              <CardFeature loading="Loading..." key={index + "allProduct"} />
+            ))}
       </div>
     </div>
   );
