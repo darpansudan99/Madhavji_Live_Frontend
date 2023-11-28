@@ -8,7 +8,7 @@ const AllProduct = ({ heading }) => {
   const categoryList = [...new Set(productData.map((e1) => e1.category))];
 
   // filter data display
-  const [filterby, setFilterBy] = useState("all");
+  const [filterby, setFilterBy] = useState("");
   const [dataFilter, setDataFilter] = useState([]);
 
   useEffect(() => {
