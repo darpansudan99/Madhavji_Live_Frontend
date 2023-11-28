@@ -12,7 +12,7 @@ const CardFeature = ({ image, name, price, category, loading, id }) => {
       name : name,
       price : price,
       category : category,
-      image : image
+      image : image,
     }))
   };
 
@@ -24,9 +24,11 @@ const CardFeature = ({ image, name, price, category, loading, id }) => {
             to={`/menu/${id}`}
             onClick={() => window.scrollTo({ top: "0", behavior: "smooth" })}
           >
+            // Inside CardFeature component
             <div className="h-28 flex flex-col justify-center items-center">
-              <img src={image} alt={name} className="h-full" />
+              {image && <img src={image} alt="" className="h-full" />}
             </div>
+
             <h3 className="font-semibold text-slate-600  capitalize text-lg mt-4 whitespace-nowrap overflow-hidden">
               {name}
             </h3>
