@@ -24,7 +24,7 @@ const CardFeature = ({ image, name, price, category, loading, id }) => {
             to={`/menu/${id}`}
             onClick={() => window.scrollTo({ top: "0", behavior: "smooth" })}
           >
-            // Inside CardFeature component
+            
             <div className="h-28 flex flex-col justify-center items-center">
               {image && <img src={image} alt="" className="h-full" />}
             </div>
